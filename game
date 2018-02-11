@@ -1,32 +1,283 @@
-# Blackjack
-
 import random
 
-class Blackjack(object):
+class Deck(object):
+
+    ranks = ['2', '3', '4', '5', '6', '7', '8', '9', 'X', 'J', 'Q', 'K', 'A']
+    suite = ['clubs', 'hearts', 'spades', 'diamonds']
+
+    deck = [r + ' ' + s for r in ranks for s in suite]
 
     def __init__(self):
         pass
 
-    def player (self, name, money):
-        self.name = name
-        self.money = money
-        print self.name
-        print self.money
+    def shake(self):
 
-    def dealer(self):
-        self.money = 1000
-        print self.money
+        random.shuffle(Deck.deck)
+
+class Player(Deck):
+
+    player_hand = []
+    player_score = 0
+    player_chips = 200
+    player_bet = []
+
+    def __init__(self):
+        """
+        uncomment out the lines below to ask the player for his name
+        i've commented this out to run my Player class without asking for the input...
+        """
 
 
-Blackjack()
-Blackjack.player(Jan, 100)
+
+
+
+
+    def draw(self):
+
+        drawncard = Deck.deck[0]
+        Player.player_hand.append(Deck.deck[0])
+        Deck.deck.remove(Deck.deck[0])
+        if drawncard[0] == 'A':
+            while True:
+
+                answer = raw_input('Do you wish for your Ace to be a 1 or a 11?')
+                try:
+                    if answer == '1':
+                        Player.player_score += 1
+                        break
+                    else:
+                        pass
+                    if answer == '11':
+                        Player.player_score += 11
+                        break
+                    else:
+                        pass
+                except:
+                    print 'Your answer is invalid, only use 1 or 11..'
+                    continue
+
+        if drawncard[0] == 'K':
+            Player.player_score += 10
+        else:
+            pass
+
+        if drawncard[0] == 'Q':
+            Player.player_score += 10
+        else:
+            pass
+
+        if drawncard[0] == 'J':
+            Player.player_score += 10
+        else:
+            pass
+        if drawncard[0] == 'X':
+            Player.player_score += 10
+        else:
+            pass
+
+        if drawncard[0] == '9':
+            Player.player_score += 9
+        else:
+            pass
+
+        if drawncard[0] == '8':
+            Player.player_score += 8
+        else:
+            pass
+
+        if drawncard[0] == '7':
+            Player.player_score += 7
+        else:
+            pass
+
+        if drawncard[0] == '6':
+            Player.player_score += 6
+        else:
+            pass
+
+        if drawncard[0] == '5':
+            Player.player_score += 5
+        else:
+            pass
+
+        if drawncard[0] == '4':
+            Player.player_score += 4
+        else:
+            pass
+
+        if drawncard[0] == '3':
+            Player.player_score += 3
+        else:
+            pass
+
+        if drawncard[0] == '2':
+            Player.player_score += 2
+        else:
+            pass
 
 
 
 
 
-cards = {'1':[2],'2':[3],'3':[4],'4':[5],'5':[6],'6':[7],'7':[8],'8':[9],'9':[10],'10':['J'],'11':['Q'],'12':['K'],'13':['A']}
-card = "'" + str(random.randint(1,13)) + "'"
+class Dealer(Deck):
+
+    dealer_hand = []
+    dealer_score = 0
+    dealer_chips = 200
+    dealer_bet = Player.player_bet =- 10
+
+    def __init__(self):
+        self.name = Dealer
+        self.money = 10000
+
+    def draw (Deck):
+
+        drawncard = Deck.deck[0]
+        Dealer.dealer_hand.append(Deck.deck[0])
+        Deck.deck.remove(Deck.deck[0])
+
+        if drawncard [0] == 'A':
+            Dealer.dealer_score += 11
+        else:
+            pass
+
+        if drawncard[0] == 'K':
+            Dealer.dealer_score += 10
+        else:
+            pass
+
+        if drawncard[0] == 'Q':
+            Dealer.dealer_score += 10
+        else:
+            pass
+
+        if drawncard[0] == 'J':
+            Dealer.dealer_score += 10
+        else:
+            pass
+        if drawncard[0] == 'X':
+            Dealer.dealer_score += 10
+        else:
+            pass
+
+        if drawncard[0] == '9':
+            Dealer.dealer_score += 9
+        else:
+            pass
+
+        if drawncard[0] == '8':
+            Dealer.dealer_score += 8
+        else:
+            pass
+
+        if drawncard[0] == '7':
+            Dealer.dealer_score += 7
+        else:
+            pass
+
+        if drawncard[0] == '6':
+            Dealer.dealer_score += 6
+        else:
+            pass
+
+        if drawncard[0] == '5':
+            Dealer.dealer_score += 5
+        else:
+            pass
+
+        if drawncard[0] == '4':
+            Dealer.dealer_score += 4
+        else:
+            pass
+
+        if drawncard[0] == '3':
+            Player.player_score += 3
+        else:
+            pass
+
+        if drawncard[0] == '2':
+            Dealer.dealer_score += 2
+        else:
+            pass
+
+class Check(object):
+    if Player.player_score > 21:
+        print 'BUST! you are done for'
+        Dealer.dealer
+
+
+
+d = Deck()
+p = Player()
+dl = Dealer()
+d.shake()
+
+
+def startgame ():
+    print 'The deck is shuffled!'
+    print 'X stands for 10!'
+    print 'Your chip amount: ' + str(Player.player_chips)
+    print 'If your chips reach 0 you lose'
+    print 'The dealer has 200 chips aswell, if the dealer hits 0 you win!'
+    print ' '
+    print '_________________________________________________________'
+    print ' '
+
+
+
+def round():
+
+    print 'Your chip amount: ' + str(Player.player_chips)
+    while True:
+        Player.player_bet = raw_input('How much do you want to wager?')
+        if Player.player_bet > str(Player.player_chips):
+            print 'You cannot bet more chips than you have...'
+            print '_________________________________________________________'
+            continue
+        else:
+            if Player.player_bet == str(Player.player_chips):
+                print 'ALL IN!'
+                break
+            else:
+                pass
+            print 'bet placed!'
+            print '_________________________________________________________'
+            break
+    raw_input('Press enter to continue')
+    print '_________________________________________________________'
+    print 'You draw your first card'
+    p.draw()
+    print 'Your hand consist of: ' + str(Player.player_hand)
+    print 'Your total value is: ' + str(Player.player_score)
+    print '_________________________________________________________'
+    raw_input('Press enter to continue')
+    print '_________________________________________________________'
+    print 'Dealer draws..'
+    dl.draw()
+    print 'Dealer hand consists of: '  + str(Dealer.dealer_hand)
+    print 'Dealer will reveal his last card at the end.'
+    print '_________________________________________________________'
+    raw_input('Press enter to continue')
+    print '_________________________________________________________'
+    print 'You draw your second card!'
+    p.draw()
+    print 'Your hand consist of: ' + str(Player.player_hand)
+    print 'Your total value is: ' + str(Player.player_score)
+    print '_________________________________________________________'
+    raw_input('Press enter to continue')
+    print '_________________________________________________________'
+    play = raw_input('Will you hit or pass?\n 1. Hit\n 2. Pass\n')
+
+
+
+
+startgame()
+round()
+
+
+
+
+
 
 
 
