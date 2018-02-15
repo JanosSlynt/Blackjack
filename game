@@ -19,18 +19,13 @@ class Player(Deck):
     player_hand = []
     player_score = 0
     player_chips = 200
-    player_bet = []
+    player_bet = 0
 
     def __init__(self):
         """
-        uncomment out the lines below to ask the player for his name
-        i've commented this out to run my Player class without asking for the input...
+        Blackjack game
+        By Jan
         """
-
-
-
-
-
 
     def draw(self):
 
@@ -114,21 +109,17 @@ class Player(Deck):
             Player.player_score += 2
         else:
             pass
-
-
-
-
-
+            
 class Dealer(Deck):
 
     dealer_hand = []
     dealer_score = 0
     dealer_chips = 200
-    dealer_bet = Player.player_bet =- 10
+    dealer_bet = 100
 
     def __init__(self):
         self.name = Dealer
-        self.money = 10000
+        self.money = 200
 
     def draw (Deck):
 
@@ -191,7 +182,7 @@ class Dealer(Deck):
             pass
 
         if drawncard[0] == '3':
-            Player.player_score += 3
+            Dealer.dealer_score += 3
         else:
             pass
 
@@ -200,10 +191,15 @@ class Dealer(Deck):
         else:
             pass
 
-class Check(object):
-    if Player.player_score > 21:
-        print 'BUST! you are done for'
-        Dealer.dealer
+def pbust():
+    print 'Your chips go to the dealer!'
+    Dealer.dealer_chips += int(Player.player_bet)
+    print 'Dealer now has: ' + str(Dealer.dealer_chips) + 'Chips'
+    print '_________________________________________________________'
+    raw_input('Press enter to continue')
+    print '_________________________________________________________'
+
+
 
 
 
@@ -223,26 +219,30 @@ def startgame ():
     print '_________________________________________________________'
     print ' '
 
-
-
-def round():
-
-    print 'Your chip amount: ' + str(Player.player_chips)
+def roundstart():
+    if len(Deck.deck) == 0:
+        d()
+    Player.player_score = 0
+    Player.player_hand = []
+    Dealer.player_hand = []
+    Dealer.player_score = 0
+    print 'Your maximum input is: ' + str(Player.player_chips)
+    print 'Dealer chips: ' + str(Dealer.dealer_chips)
     while True:
-        Player.player_bet = raw_input('How much do you want to wager?')
-        if Player.player_bet > str(Player.player_chips):
-            print 'You cannot bet more chips than you have...'
-            print '_________________________________________________________'
-            continue
-        else:
-            if Player.player_bet == str(Player.player_chips):
+        Player.player_bet = raw_input('How much do you want to wager?: ')
+        if int(Player.player_bet) >= int(Player.player_chips):
+            if int(Player.player_bet) == int(Player.player_chips):
                 print 'ALL IN!'
                 break
             else:
                 pass
-            print 'bet placed!'
-            print '_________________________________________________________'
+            print 'Learn maths, your bet is higher than maximum chips'
+            continue
+        else:
+            print 'Bet placed!'
             break
+    Player.player_chips -= int(Player.player_bet)
+    print '_________________________________________________________'
     raw_input('Press enter to continue')
     print '_________________________________________________________'
     print 'You draw your first card'
@@ -255,6 +255,7 @@ def round():
     print 'Dealer draws..'
     dl.draw()
     print 'Dealer hand consists of: '  + str(Dealer.dealer_hand)
+    print 'Dealer score: ' + str(Dealer.dealer_score)
     print 'Dealer will reveal his last card at the end.'
     print '_________________________________________________________'
     raw_input('Press enter to continue')
@@ -266,18 +267,96 @@ def round():
     print '_________________________________________________________'
     raw_input('Press enter to continue')
     print '_________________________________________________________'
-    play = raw_input('Will you hit or pass?\n 1. Hit\n 2. Pass\n')
 
 
+def choice():
+    while True:
+        if Player.player_score == 21:
+            print 'Blackjack! you win'
+            Player.player_chips += int(Dealer.dealer_bet)
+            break
+        print 'Cards in hand'
+        print Player.player_hand
+        print 'total score'
+        print Player.player_score
+        print "we're playing for : " + Player.player_bet + ' Chips'
+        print '_________________________________________________________'
+        raw_input('Press enter to continue')
+        print '_________________________________________________________'
+        print 'Will you play or pass?'
+        play = raw_input('\n 1. Play \n 2. Pass\n\n')
+        if play == '1':
+            p.draw()
+            if Player.player_score > 21:
+                print Player.player_hand
+                print 'BUST! You lose..'
+                print Player.player_score
+                pbust()
+                print Player.player_hand
+                print Player.player_score
+                print '_________________________________________________________'
+                raw_input('Press enter to continue')
+                print '_________________________________________________________'
+                break
+            else:
+                continue
 
+        else:
+            print 'Stopping'
+            print 'Your score: ' + str(Player.player_score)
+            print 'Dealer score: '+ str(Dealer.dealer_score)
+            print 'Dealer draws his second card'
+            dl.draw()
+            print '_________________________________________________________'
+            raw_input('Press enter to continue')
+            print '_________________________________________________________'
+            print Dealer.dealer_hand
+            if Dealer.dealer_score < 15:
+                print 'Dealer draws again'
+                dl.draw()
+                if Dealer.dealer_score == Player.player_score:
+                    print 'Draw!'
+                    Player.player_chips += int(Player.player_bet)
+                    Dealer.dealer_chips += int(Dealer.dealer_bet)
+                if Dealer.dealer_score >21:
+                    print 'You win!'
+                    Player.player_chips += int(Dealer.dealer_bet)
+                    break
+                print '_________________________________________________________'
+                raw_input('Press enter to continue')
+                print '_________________________________________________________'
+            else:
+                pass
+            print Dealer.dealer_hand
+            print Dealer.dealer_score
+            if int(Player.player_score) > int(Dealer.dealer_score):
+                print 'you won!'
+                Player.player_chips += int(Dealer.dealer_bet)
+                print '_________________________________________________________'
+                raw_input('Press enter to continue')
+                print '_________________________________________________________'
+                print Player.player_chips
+                print Dealer.dealer_chips
+                Player.player_chips += int(Dealer.dealer_bet)
+                print Player.player_chips
+                print Dealer.dealer_chips
 
-startgame()
-round()
+            else:
+                print ' you lose!'
+                print '_________________________________________________________'
+                raw_input('Press enter to continue')
+                print '_________________________________________________________'
 
+            break
+        print 'Next round..'
+def game():
+    startgame()
+    while True:
+        if Player.player_chips > 0:
+            roundstart()
+            choice()
+        else:
+            print 'game over.'
+            break
 
-
-
-
-
-
-
+game()
